@@ -1,5 +1,6 @@
 
 var host = location.origin.replace(/^http/, 'ws')
+//var host = "ws://secret-reaches-8341.herokuapp.com/client/
 
 var ws;
 
@@ -45,9 +46,12 @@ var networking = {
 				messagetype : "connect",
 				player: {
 					id: playername,
-					X: x, Y: y
+					X: 960, Y: 448
 				}
 			};
+					player = new game.PlayerEntity(960, 448, { image: "dude", spritewidth: 64, spriteheight:64 }, 
+						playername, playername, true);
+					me.game.world.addChild(player);	
 
 			var dataToSend = JSON.stringify(data);
 			ws.send(dataToSend);
@@ -66,7 +70,7 @@ var networking = {
 				if(player == null || player.length == 0)
 				{
 					console.log("Player not found. adding: " + playerData.id);
-					player = new game.PlayerEntity(960, 448, { image: "dude", spritewidth: 64, spriteheight:64 }, playerData.id, playerData.id);
+					player = new game.PlayerEntity(960, 448, { image: "dude", spritewidth: 64, spriteheight:64 }, playerData.id, playerData.id, false);
 					me.game.world.addChild(player);	
 				};
 
