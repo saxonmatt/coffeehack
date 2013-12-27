@@ -71,6 +71,8 @@ game.PlayerEntity = me.ObjectEntity.extend({
         // check & update player movement
         this.updateMovement();
 
+        networking.updatePlayer(this.name, this.pos.x, this.pos.y);
+
         this.bubble.pos.x = this.pos.x+32;
         this.bubble.pos.y = this.pos.y-180;
 
