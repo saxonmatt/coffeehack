@@ -1,5 +1,10 @@
 #IWDev Crimbo Coffeehack 2013
 
+## LoveCoffee
+
+We've made (or failed to make) a virtual coffee shop:
+http://secret-reaches-8341.herokuapp.com/client/
+
 More info: [IWDev Crimbo Coffeehack 2013](http://saxonmatt.co.uk/coffeehack/index.html)
 
 ## Rules
@@ -12,3 +17,4 @@ More info: [IWDev Crimbo Coffeehack 2013](http://saxonmatt.co.uk/coffeehack/inde
 6. Have fun!
 
 We have prizes!
+
