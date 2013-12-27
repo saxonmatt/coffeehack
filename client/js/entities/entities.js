@@ -33,7 +33,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
         this.z = 10;
 
         // set the display to follow our position on both axis
-        me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+        if(isplayer) me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
         //window.playerEntity = this;
         this.playerName = name;
