@@ -1,6 +1,6 @@
 
-//var host = location.origin.replace(/^http/, 'ws')
-var host = "ws://secret-reaches-8341.herokuapp.com/"
+var host = location.origin.replace(/^http/, 'ws')
+//var host = "ws://secret-reaches-8341.herokuapp.com/"
 
 var ws;
 
@@ -74,10 +74,13 @@ var networking = {
 				}
 				else
 				{
-					console.log("Player " + player.id + ' is now at ' + playerData.X + ',' + playerData.Y);
+					console.log("Player " + playerData.id + ' mov ' + playerData.X + ',' + playerData.Y);
 
-					player[0].posX = playerData.X;
-					player[0].posY = playerData.Y;
+					player[0].pos.x = playerData.X;
+					player[0].pos.y = playerData.Y;
+
+					console.log("Player " + player[0].id + ' is now at ' + player[0].posX + ',' + player[0].posY);
+
 				}
 			}
 
