@@ -9,14 +9,19 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
     ------ */
 
-    init: function (x, y, settings, name) {
+    init: function (x, y, settings, name, id) {
         // call the constructor
         this.parent(x, y, settings);
+
+        this.name = id;
 
         // set the default horizontal & vertical speed (accel vector)
         this.setVelocity(5,5);
 
-        this.font = new me.Font('sans-serif','16px','#ffffff','center');
+        this.bubble = new game.SpeechBubble(this.pos.x, this.pos.y, "arse");
+        me.game.world.addChild(this.bubble);
+
+        this.font = new me.Font('helvetica,arial,sans-serif','16px','#ffffff','center');
 
         this.z = 10;
 
@@ -66,6 +71,9 @@ game.PlayerEntity = me.ObjectEntity.extend({
         // check & update player movement
         this.updateMovement();
 
+        this.bubble.pos.x = this.pos.x+32;
+        this.bubble.pos.y = this.pos.y-180;
+
         // update animation if necessary
         if (this.vel.x != 0 || this.vel.y != 0) {
             // update object animation
@@ -79,8 +87,36 @@ game.PlayerEntity = me.ObjectEntity.extend({
     },
 
     draw: function (context) {
-        this.font.draw(context, this.playerName, this.pos.x+32, this.pos.y - 40);
+        this.font.draw(context, this.playerName, this.pos.x+32, this.pos.y - 20);
         this.parent(context);
+    }
+
+});
+
+game.SpeechBubble = me.ObjectContainer.extend({
+    
+    init: function (x, y, text) {
+        // call the constructor
+        this.parent(x, y, 300,200);
+
+        this.font = new me.Font('helvetica,arial,sans-serif', '16px', '#000000', 'left');
+
+        this.z = 11;
+
+        var spr = new me.SpriteObject(0, 0, me.loader.getImage("bubble"), 300, 200);
+        //spr.floating = true;
+        spr.z = 12;
+        this.addChild(spr);
+
+        this.text = text;
+
+        this.alwaysUpdate = true;
+    },
+
+    draw: function (context) {
+        this.parent(context);
+        this.font.draw(context, this.text, this.pos.x + 32, this.pos.y + 32);
+        
     }
 
 });
