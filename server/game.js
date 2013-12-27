@@ -14,3 +14,16 @@ console.log('http server listening on %d', port);
 var wss = new WebSocketServer({server: server});
 
 console.log('websocket server created');
+
+
+
+// Okay lets get some connections.
+wss.on('connection', function(ws) {
+	
+	// Connection close handler.
+	ws.on('close', function() {
+		// TODO: some kind of client id.
+		console.log("Client closed.");
+	});
+
+});
