@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "ws": "0.4.x",
-    "express": "3.x"
+    "express": "3.x",
+    "twit": "1.1.11"
   },
   "engines": {
     "node": "0.10.x",
