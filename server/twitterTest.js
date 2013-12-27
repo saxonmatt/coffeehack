@@ -9,26 +9,22 @@ var T = new Twit({
 
 console.log('Searching Twitter');
 
-T.get('search/tweets', { q: 'coffee since:2013-12-01', count: 10 }, function(err, reply) {
+T.get('search/tweets', { q: '#coffee', count: 10 }, function(err, reply) {
     if(err) return handleError(err);
     
  	var max = 0, popular;
 
 	//console.log(reply);
 
-	  var tweets = reply.results, i = reply.length;
+	  var tweets = reply.statuses, i = reply.statuses.length;
 
 	  while(i--) {
 	    var tweet = tweets[i];
-	    //console.log(tweet.metadata);
-
-		console.log(tweet.metadata.text);
+	    //console.log(tweet);
+		console.log(tweet.text);
 	  }
 
 })
-
-
-
 
 function handleError(err) {
   console.error('twit response status:', err.statusCode);
