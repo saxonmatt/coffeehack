@@ -4,9 +4,6 @@ twitterStuff.getTwitterDebug(debugCallback);
 
 twitterStuff.getTweets(function tweetsCallback(results)
 {
-
-	//console.log(results);
-
 	var tweets = results.statuses, i = results.statuses.length;
 
 	while(i--) {

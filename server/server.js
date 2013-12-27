@@ -13,6 +13,13 @@ var twitterloopInterval = 10000;
 var players = [];
 
 
+var player = {
+	id: 'twitter',
+	X: 900, Y: 400
+};
+
+players.push(player);
+
 app.use(express.static(__dirname + '/'));
 
 var server = http.createServer(app);
@@ -30,34 +37,36 @@ setInterval(function() {
 	game.update(Date(), players);
 }, gameloopInterval);
 
-//setInterval(function() {
-//	twitter.getTweets(function(tweets) {
-//		console.log("Got some tweets.");
-//	});
-//});
-
+/*setInterval(function() {
+	twitter.getTweets(function(tweets) {
+		console.log("Got some tweets.");
+	});
+});
+*/
 
 // Okay lets get some connections.
 wss.on('connection', function(ws) {
 
-	var playerid = lolguids.guid();
-	
 	// Connection close handler.
 	ws.on('close', function() {
 		// TODO: some kind of client id.
 		console.log("Client closed: " + playerid);
 	});
 
+	ws.on('message', function(data) {
+		console.log("data: " + data);
+		console.log("data2: " + ws.data);
+
+		var player = {
+			id: data
+		};
+
+		players.push(player);
+	});
+
 	// push updates
 	setInterval(function() {
-		ws.send(JSON.stringify("Server update for player: " + playerid), function() { });
+		ws.send(JSON.stringify(players), function() { });
 	}, gameloopInterval);
-
-	var player = {
-		id: playerid
-	};
-
-	players.push(player);
-
-	ws.send(JSON.stringify(playerid), function() { });
+	
 });
