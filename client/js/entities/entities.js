@@ -18,7 +18,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
         // set the default horizontal & vertical speed (accel vector)
         this.setVelocity(5,5);
 
-        this.bubble = new game.SpeechBubble(this.pos.x, this.pos.y, "arse");
+        this.bubble = new game.SpeechBubble(this.pos.x, this.pos.y, "this is a test of a really long bit of speech. it will be lmimted to 140 characters or some such shit, who knows.");
         me.game.world.addChild(this.bubble);
 
         this.font = new me.Font('helvetica,arial,sans-serif','16px','#ffffff','center');
@@ -99,7 +99,7 @@ game.SpeechBubble = me.ObjectContainer.extend({
         // call the constructor
         this.parent(x, y, 300,200);
 
-        this.font = new me.Font('helvetica,arial,sans-serif', '16px', '#000000', 'left');
+        this.font = new me.Font('helvetica,arial,sans-serif', '16px', '#000000');
 
         this.z = 11;
 
@@ -115,8 +115,30 @@ game.SpeechBubble = me.ObjectContainer.extend({
 
     draw: function (context) {
         this.parent(context);
-        this.font.draw(context, this.text, this.pos.x + 32, this.pos.y + 32);
+        this.font.draw(context, wrapText(context, this.text, 200), this.pos.x + 32, this.pos.y + 32);
         
     }
 
 });
+
+function wrapText(context, text,maxWidth) {
+    var words = text.split(' ');
+    var lines = '';
+
+    var line = '';
+    for (var n = 0; n < words.length; n++) {
+        line += words[n] + ' ';
+        var metrics = context.measureText(line);
+        var testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+            lines += line + "\n";
+            line = '';
+        }
+        else {
+            //lines += line;
+        }
+        
+    }
+    lines += line;
+    return (lines);
+}
