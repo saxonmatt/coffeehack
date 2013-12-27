@@ -1,11 +1,26 @@
 
-var host = location.origin.replace(/^http/, 'ws')
-//var host = "ws://secret-reaches-8341.herokuapp.com/client/
+//var host = location.origin.replace(/^http/, 'ws')
+var host = "ws://secret-reaches-8341.herokuapp.com/"
 
 var ws;
 
 
 var networking = {
+	chat: function(playername, chatMessage, onsuccess, onerror) {
+		console.log("Chatting: " + playername);
+
+		var data = {
+			messagetype : 'chat',
+			chat : {
+				id : playername,
+				message : chatMessage
+			}
+		};
+
+		var dataToSend = JSON.stringify(data);
+		ws.send(dataToSend);
+	},
+
 	updatePlayer: function(playername, x, y, onconnected, onerror) {
 		console.log("Move: " + playername + ' to ' + x + ',' + y);
 

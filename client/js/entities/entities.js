@@ -33,7 +33,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
         this.z = 10;
 
         // set the display to follow our position on both axis
-        me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+        if(isplayer) me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
         //window.playerEntity = this;
         this.playerName = name;
@@ -138,7 +138,7 @@ game.SpeechBubble = me.ObjectContainer.extend({
 
         this.text = text;
 
-        this.displayTimer = 0;
+        this.displayTimer = 200;
         this.visible = true;
 
         this.alwaysUpdate = true;
