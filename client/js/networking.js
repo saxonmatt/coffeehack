@@ -7,7 +7,7 @@ var ws;
 
 var networking = {
 	updatePlayer: function(playername, x, y, onconnected, onerror) {
-		console.log("Move: " + playername);
+		console.log("Move: " + playername + ' to ' + x + ',' + y);
 
 		var data = {
 			messagetype : 'move',
@@ -40,8 +40,6 @@ var networking = {
 
 			var dataToSend = JSON.stringify(data);
 			ws.send(dataToSend);
-
-
 		};
 
 		ws.onmessage = function (event) {
@@ -52,15 +50,20 @@ var networking = {
 
 				var playerData = players[i];
 				var player = me.game.world.getEntityByProp('name', playerData.id)
+				
 				if(player == null || player.length == 0)
 				{
 					console.log("Player not found. adding: " + playerData.id);
-					player = new game.PlayerEntity(960, 448, { image: "dude", spritewidth: 64, spriteheight:64 }, playerData.id, playerData.id, false);
+					player = new game.PlayerEntity(playerData.X, playerData.Y, { image: "dude", spritewidth: 64, spriteheight:64 }, playerData.id, playerData.id, false);
 					me.game.world.addChild(player);	
-				};
+				}
+				else
+				{
+					console.log("Player " + player.id + ' is now at ' + playerData.X + ',' + playerData.Y);
 
-				player.posX = playerData.X;
-				player.posY = playerData.Y;
+					player[0].posX = playerData.X;
+					player[0].posY = playerData.Y;
+				}
 			}
 
 		};

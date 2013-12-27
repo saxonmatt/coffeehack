@@ -57,7 +57,7 @@ wss.on('connection', function(ws) {
 		
 		console.log("data: " + dataIn);
 		var data = JSON.parse(dataIn);
-		
+
 		if(data.messagetype == "connect")
 		{
 			console.log('connection for ' + data.player)
@@ -66,12 +66,13 @@ wss.on('connection', function(ws) {
 		
 		if(data.messagetype == "move")
 		{
-			console.log('move for ' + data.player)
+			console.log('move for ' + data.player.id)
 			for (var i = players.length - 1; i >= 0; i--) {
 				if(players[i].id == data.player.id)
 				{
-					players[i].X = data.x;
-					players[i].Y = data.y;
+					console.log('moved ' + data.player.id)
+					players[i].X = data.player.X;
+					players[i].Y = data.player.Y;
 				}		
 			};
 		}
