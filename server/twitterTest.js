@@ -1,32 +1,22 @@
-var Twit = require('twit')
+var twitterStuff = require('./twitterStuff');
 
-var T = new Twit({
-    consumer_key:         'RCkPF4og3Myzh5LUex6rg'
-  , consumer_secret:      'dapto57KIBifXXoEJR4ZIdB3Y3DOJUKvDko8wEgiGE'
-  , access_token:         '29684038-uBUO3ok2Ri8xr0dfEKJM9VjQ8a3TU67KjQ7tkROs6'
-  , access_token_secret:  'gU5Ddmu9PupaLcqIZr4otlb4AatJ7uOsrfszzzjPJg2EN'
-})
+twitterStuff.getTwitterDebug(debugCallback);
 
-console.log('Searching Twitter');
+twitterStuff.getTweets(function tweetsCallback(results)
+{
 
-T.get('search/tweets', { q: '#coffee', count: 10 }, function(err, reply) {
-    if(err) return handleError(err);
-    
- 	var max = 0, popular;
+	//console.log(results);
 
-	//console.log(reply);
+	var tweets = results.statuses, i = results.statuses.length;
 
-	  var tweets = reply.statuses, i = reply.statuses.length;
-
-	  while(i--) {
-	    var tweet = tweets[i];
-	    //console.log(tweet);
+	while(i--) {
+	var tweet = tweets[i];
 		console.log(tweet.text);
-	  }
+	}
+});
 
-})
-
-function handleError(err) {
-  console.error('twit response status:', err.statusCode);
-  console.error('data:', err.data);
+function debugCallback(paramname)
+{	
+	console.log('test1');	
+	console.log(paramname);
 }
