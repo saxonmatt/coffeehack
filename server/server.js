@@ -13,12 +13,12 @@ var twitterloopInterval = 10000;
 var players = [];
 
 
-var player = {
+var player1 = {
 	id: 'twitter',
-	X: 900, Y: 400
+	X: 700, Y: 300
 };
 
-players.push(player);
+players.push(player1);
 
 app.use(express.static(__dirname + '/'));
 
@@ -50,18 +50,31 @@ wss.on('connection', function(ws) {
 	// Connection close handler.
 	ws.on('close', function() {
 		// TODO: some kind of client id.
-		console.log("Client closed: " + playerid);
+		console.log("Client closed:");
 	});
 
-	ws.on('message', function(data) {
-		console.log("data: " + data);
-		console.log("data2: " + ws.data);
-
-		var player = {
-			id: data
-		};
-
-		players.push(player);
+	ws.on('message', function(dataIn) {
+		
+		console.log("data: " + dataIn);
+		var data = JSON.parse(dataIn);
+		
+		if(data.messagetype == "connect")
+		{
+			console.log('connection for ' + data.player)
+			players.push(data.player);
+		}
+		
+		if(data.messagetype == "move")
+		{
+			console.log('move for ' + data.player)
+			for (var i = players.length - 1; i >= 0; i--) {
+				if(players[i].id == data.player.id)
+				{
+					players[i].X = data.x;
+					players[i].Y = data.y;
+				}		
+			};
+		}
 	});
 
 	// push updates
