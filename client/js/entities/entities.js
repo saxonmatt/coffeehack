@@ -17,6 +17,11 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
         this.isPlayer = isplayer;
 
+        this.renderable.addAnimation("up", [0, 1]);
+        this.renderable.addAnimation("down", [4,5]);
+        this.renderable.addAnimation("left", [6,7]);
+        this.renderable.addAnimation("right", [2, 3]);
+
         // set the default horizontal & vertical speed (accel vector)
         this.setVelocity(5,5);
 
@@ -46,14 +51,17 @@ game.PlayerEntity = me.ObjectEntity.extend({
         if (this.isPlayer) {
             if (me.input.isKeyPressed('left')) {
                 // flip the sprite on horizontal axis
-                this.flipX(true);
+                //this.flipX(true);
                 // update the entity velocity
+                this.renderable.setCurrentAnimation("left");
                 this.vel.x -= this.accel.x * me.timer.tick;
                 networking.updatePlayer(this.name, this.pos.x, this.pos.y);
             } else if (me.input.isKeyPressed('right')) {
                 // unflip the sprite
-                this.flipX(false);
+                //this.flipX(false);
                 // update the entity velocity
+                this.renderable.setCurrentAnimation("right");
+
                 this.vel.x += this.accel.x * me.timer.tick;
                 networking.updatePlayer(this.name, this.pos.x, this.pos.y);
             } else {
@@ -63,12 +71,14 @@ game.PlayerEntity = me.ObjectEntity.extend({
             if (me.input.isKeyPressed('up')) {
                 // flip the sprite on horizontal axis
                 //this.flipX(true);
+                this.renderable.setCurrentAnimation("up");
                 // update the entity velocity
                 this.vel.y -= this.accel.y * me.timer.tick;
                 networking.updatePlayer(this.name, this.pos.x, this.pos.y);
             } else if (me.input.isKeyPressed('down')) {
                 // unflip the sprite
                 //this.flipX(false);
+                this.renderable.setCurrentAnimation("down");
                 // update the entity velocity
                 this.vel.y += this.accel.y * me.timer.tick;
                 networking.updatePlayer(this.name, this.pos.x, this.pos.y);
