@@ -39,6 +39,8 @@
 
 		<script type="text/javascript" src="js/screens/title.js"></script>
 		<script type="text/javascript" src="js/screens/play.js"></script>
+
+		<script type="text/javascript" src="js/networking.js"></script>
 		
 		<!-- Bootstrap & Mobile optimization tricks -->
 		<script type="text/javascript">
@@ -79,8 +81,18 @@
 			function inputChanged() {
 			    if ($('#entername').is(':visible')) {
 			        $('#entername').hide();
+			        
 			        window.playerName = txtInput.value;
-			        var player = new game.PlayerEntity(100, 100, { image: "dude", spritewidth: 64, spriteheight:64 }, window.playerName);
+
+		        	console.log("test log");
+
+					networking.connect(
+						window.playerName,
+						960, 448,
+						function() { console.log("Hey I connected.") },
+						function() { console.log("ERRORERRORERROR!") });
+
+			        var player = new game.PlayerEntity(960, 448, { image: "dude", spritewidth: 64, spriteheight:64 }, window.playerName);
 			        //player.init(100, 100, { image: "dude", spriteWidth: 64 }, window.playerName);
 			        me.game.world.addChild(player);
 			    }
