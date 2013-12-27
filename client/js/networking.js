@@ -1,6 +1,6 @@
 
-var host = location.origin.replace(/^http/, 'ws')
-//var host = "ws://secret-reaches-8341.herokuapp.com/client/
+//var host = location.origin.replace(/^http/, 'ws')
+var host = "ws://secret-reaches-8341.herokuapp.com/"
 
 var ws;
 
