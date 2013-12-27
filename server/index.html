@@ -17,11 +17,22 @@
       }
     </style>
 
+    <script>
+      var host = location.origin.replace(/^http/, 'ws')
+      var ws = new WebSocket(host);
+      ws.onmessage = function (event) {
+        var li = document.createElement('li');
+        li.innerHTML = JSON.parse(event.data);
+        document.querySelector('#pings').appendChild(li);
+      };
+    </script>
+
   </head>
   <body>
     <h1>Coffehacking!</h1>
     <p>
       We might be up and running!
     </p>
+    <ul id='pings'></ul>
   </body>
 </html>
