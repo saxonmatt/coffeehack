@@ -96,6 +96,17 @@
 			        //player.init(100, 100, { image: "dude", spriteWidth: 64 }, window.playerName);
 			        me.game.world.addChild(player);*/
 			    }
+			    else 
+			    {
+			    	var msg = txtInput.value;
+
+			    	networking.chat(
+			    		window.playerName,
+			    		msg,
+			    		function() { console.log("Hey I sent a chat message.")},
+			    		function() { console.log("CHATERRORS!")});
+			    }
+
 			    txtInput.value = '';
 			    txtInput.focus();
 			}

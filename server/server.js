@@ -11,6 +11,7 @@ var WebSocketServer = require('ws').Server
 var gameloopInterval = 1000;
 var twitterloopInterval = 10000;
 var players = [];
+var chatMessages = [];
 
 
 var player1 = {
@@ -75,11 +76,18 @@ wss.on('connection', function(ws) {
 				}		
 			};
 		}
+
+		if(data.messagetype == "chat")
+		{	
+			console.log('chat message received.');
+			chatMessages.push(data);
+		}
 	});
 
 	// push updates
 	setInterval(function() {
 		ws.send(JSON.stringify(players), function() { });
+		ws.send(JSON.stringify(chatMessages), function() { });
 	}, gameloopInterval);
 	
 });
