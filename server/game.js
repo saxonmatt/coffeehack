@@ -2,8 +2,7 @@ var WebSocketServer = require('ws').Server
 	, http = require('http')
 	, express = require('express')
 	, app = express()
-	, port = process.env.PORT || 8080
-	, lolguids = require('./lolguids');
+	, port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname + '/'));
 
@@ -16,8 +15,6 @@ var wss = new WebSocketServer({server: server});
 
 console.log('websocket server created');
 
-var guid = lolguids.guid();
-console.log('Guid is:' + guid);
 
 
 // Okay lets get some connections.
@@ -28,5 +25,7 @@ wss.on('connection', function(ws) {
 		// TODO: some kind of client id.
 		console.log("Client closed.");
 	});
+
+	console.log("Client connected.");
 
 });
