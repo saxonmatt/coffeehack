@@ -138,7 +138,7 @@ game.SpeechBubble = me.ObjectContainer.extend({
 
         this.text = text;
 
-        this.displayTimer = 0;
+        this.displayTimer = 200;
         this.visible = true;
 
         this.alwaysUpdate = true;
