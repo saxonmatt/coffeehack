@@ -30,6 +30,8 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
         //window.playerEntity = this;
         this.playerName = name;
+
+        this.speak("arse");
     },
 
     /* -----
@@ -44,11 +46,13 @@ game.PlayerEntity = me.ObjectEntity.extend({
             this.flipX(true);
             // update the entity velocity
             this.vel.x -= this.accel.x * me.timer.tick;
+            networking.updatePlayer(this.name, this.pos.x, this.pos.y);
         } else if (me.input.isKeyPressed('right')) {
             // unflip the sprite
             this.flipX(false);
             // update the entity velocity
             this.vel.x += this.accel.x * me.timer.tick;
+            networking.updatePlayer(this.name, this.pos.x, this.pos.y);
         } else {
             this.vel.x = 0;
         }
@@ -58,11 +62,13 @@ game.PlayerEntity = me.ObjectEntity.extend({
             //this.flipX(true);
             // update the entity velocity
             this.vel.y -= this.accel.y * me.timer.tick;
+            networking.updatePlayer(this.name, this.pos.x, this.pos.y);
         } else if (me.input.isKeyPressed('down')) {
             // unflip the sprite
             //this.flipX(false);
             // update the entity velocity
             this.vel.y += this.accel.y * me.timer.tick;
+            networking.updatePlayer(this.name, this.pos.x, this.pos.y);
         } else {
             this.vel.y = 0;
         }
@@ -71,7 +77,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
         // check & update player movement
         this.updateMovement();
 
-        networking.updatePlayer(this.name, this.pos.x, this.pos.y);
+        //
 
         this.bubble.pos.x = this.pos.x+32;
         this.bubble.pos.y = this.pos.y-180;
@@ -91,6 +97,12 @@ game.PlayerEntity = me.ObjectEntity.extend({
     draw: function (context) {
         this.font.draw(context, this.playerName, this.pos.x+32, this.pos.y - 20);
         this.parent(context);
+    },
+
+    speak: function (text) {
+        this.bubble = new game.SpeechBubble(this.pos.x, this.pos.y, text);
+        //this.bubble.displayTimer = 200;
+        //this.bubble.visible = true;
     }
 
 });
@@ -112,7 +124,17 @@ game.SpeechBubble = me.ObjectContainer.extend({
 
         this.text = text;
 
+        this.displayTimer = 0;
+        this.visible = true;
+
         this.alwaysUpdate = true;
+    },
+
+    update:function()
+    {
+        this.displayTimer -= me.timer.tick;
+
+        if (this.displayTimer <= 0) this.visible = false;
     },
 
     draw: function (context) {
